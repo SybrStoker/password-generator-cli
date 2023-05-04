@@ -1,5 +1,11 @@
 import java.util.Random;
 import java.util.ArrayList;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.awt.Toolkit;
+import java.io.*;
 
 public class Generator{
 	private byte passLength;
@@ -89,6 +95,24 @@ public class Generator{
 		}
 
 		return password.toString();
+	}
+
+	private void copyTextToClipboard(String text){
+		StringSelection stringSelection = new StringSelection(text);
+		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+		clipboard.setContents(stringSelection, null);
+	}
+
+	private String copyTextFromClipboard(){
+		String copiedText = "";
+		try{
+			Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+			copiedText = (String) clipboard.getData(DataFlavor.stringFlavor);
+
+		} catch (UnsupportedFlavorException | IOException e) {
+        	e.printStackTrace();
+    	}
+		return copiedText;
 	}
 	
 
