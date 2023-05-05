@@ -35,17 +35,15 @@ public class Features{
 		clipboard.setContents(stringSelection, null);
 	}
 
-	private String copyFromClipboard(){
-		String copiedText = "";
-		try{
-			Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-			copiedText = (String) clipboard.getData(DataFlavor.stringFlavor);
+	public void executeClipboard(int time, String password){
+		copyToClipboard(password);
 
-		} 
-		catch (UnsupportedFlavorException | IOException e){
-        	e.printStackTrace();
-    	}
-
-		return copiedText;
+        for(int i = 0; i < time; i++){
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
 	}
 }
