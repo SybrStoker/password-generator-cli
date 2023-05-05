@@ -8,5 +8,9 @@ public class Launcher{
 		password = passGen.getPassword();
 		System.out.println(password);
 		System.out.println(toDo.shuffle(password));
+
+		System.out.println("Password copied to clipboard for 30 seconds");
+		toDo.executeClipboard(30, password);
+
 	}
 }
