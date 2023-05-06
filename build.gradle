@@ -8,6 +8,7 @@
 plugins{
 	id "application"
 	id "java"
+	id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
 ext{
@@ -18,15 +19,20 @@ application{
 	mainClassName = javaMainClass
 }
 
-jar{
+/*jar{
 	manifest {
 		attributes "Main-Class":  "Launcher"
 	}
 	archiveBaseName = "Launcher"
-}
+}*/
 
 repositories{
 	mavenCentral()
+	jcenter()
+}
+
+shadowJar{
+	mergeServiceFiles()
 }
 
 dependencies{
