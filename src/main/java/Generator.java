@@ -36,24 +36,36 @@ public class Generator{
 
 	private char pickAcharacter(){
 		Random genNum = new Random();
-		byte choice = (byte) genNum.nextInt(4);
+		byte choice;
 		char character = ' '; //cause all assingments are in switch statment compiler doesn't allow me to leave the var unsigned.
 
-		switch(choice){
-			case (byte) 0:
-				character = this.lettersA[genNum.nextInt(this.lettersA.length)];
-				break;
-			case (byte) 1:
-				character = Character.toUpperCase(character = this.lettersA[genNum.nextInt(this.lettersA.length)]);
-				break;
-			case (byte) 2:
-				character = this.numbersA[genNum.nextInt(this.numbersA.length)];
-				break;
-			case (byte) 3:
-				character = this.sCharsA[genNum.nextInt(this.sCharsA.length)];
-				break;
-			default:
-				System.out.println("Failed to pick a character.");
+		while(character == ' '){
+			choice = (byte) genNum.nextInt(4);
+					
+			switch(choice){
+				case (byte) 0:
+					if(letters){
+						character = this.lettersA[genNum.nextInt(this.lettersA.length)];
+					}
+					break;
+				case (byte) 1:
+					if(capLetters){
+						character = Character.toUpperCase(character = this.lettersA[genNum.nextInt(this.lettersA.length)]);
+					}
+					break;
+				case (byte) 2:
+					if(numbers){
+						character = this.numbersA[genNum.nextInt(this.numbersA.length)];
+					}
+					break;
+				case (byte) 3:
+					if(sChars){
+						character = this.sCharsA[genNum.nextInt(this.sCharsA.length)];
+					}
+					break;
+				default:
+					System.out.println("Failed to pick a character.");
+		}
 		}
 
 		return character;

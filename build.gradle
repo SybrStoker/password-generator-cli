@@ -6,13 +6,23 @@
  */
 
 plugins{
-	id 'java'
+	id "application"
+	id "java"
+}
+
+ext{
+	javaMainClass = "Launcher"
+}
+
+application{
+	mainClassName = javaMainClass
 }
 
 jar{
-	manifest{
-		attributes 'Main-Class': 'Launcher'
+	manifest {
+		attributes "Main-Class":  "Launcher"
 	}
+	archiveBaseName = "Launcher"
 }
 
 repositories{
@@ -22,5 +32,8 @@ repositories{
 dependencies{
 	// https://mvnrepository.com/artifact/junit/junit
 	testImplementation group: 'junit', name: 'junit', version: '4.13.2'
+
+	// https://mvnrepository.com/artifact/info.picocli/picocli
+	implementation group: 'info.picocli', name: 'picocli', version: '4.7.3'
 
 }
