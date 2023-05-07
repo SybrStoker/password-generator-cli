@@ -28,10 +28,12 @@ application{
 
 repositories{
 	mavenCentral()
-	jcenter()
 }
 
 shadowJar{
+	manifest {
+		attributes "Main-Class":  "Launcher"
+	}
 	mergeServiceFiles()
 }
 
@@ -42,4 +44,8 @@ dependencies{
 	// https://mvnrepository.com/artifact/info.picocli/picocli
 	implementation group: 'info.picocli', name: 'picocli', version: '4.7.3'
 
+}
+
+test {
+    useJUnitPlatform()
 }
