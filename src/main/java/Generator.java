@@ -17,8 +17,9 @@ public class Generator{
 									'_', '=', '+', '/', '\\', '|', '[', ']', '{', '}', '\'',
 									'\"', ';', ':', ',', '.', '<', '>', '?', '`', '~'};
 
-	public void setConfigurations(byte passLength, boolean letters,
+	Generator(byte passLength, boolean letters,
 			boolean capLetters, boolean numbers, boolean sChars){
+
 		if(passLength > 25){
 			throw new Error("Your password is too long. Take it easy. You've got to stop!"); 
 		}
@@ -27,6 +28,7 @@ public class Generator{
 				numbers == false && sChars == false){
 			throw new Error("No options. At least one option must be chosen.");
 		}
+
 		this.passLength = passLength;
 		this.letters = letters;
 		this.capLetters = capLetters;

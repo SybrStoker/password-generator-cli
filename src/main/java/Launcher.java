@@ -32,14 +32,14 @@ public class Launcher implements Runnable{
 
     @Override
     public void run() { 
-    	Generator passGen = new Generator();
+    	Generator passGen;
     	Features perform = new Features();
 
     	if(useAll){
-    		passGen.setConfigurations((byte) length, true, true, true, true);
+    		passGen = new Generator((byte) length, true, true, true, true);
     		
     	} else{
-    		passGen.setConfigurations((byte) length, useLetters, useCapitalLetters, useNumbers, useSpecialCharacters);    		
+    		passGen = new Generator((byte) length, useLetters, useCapitalLetters, useNumbers, useSpecialCharacters); 		
     	}
 
     	String password = passGen.getPassword();
