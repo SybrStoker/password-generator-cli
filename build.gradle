@@ -19,13 +19,6 @@ application{
 	mainClassName = javaMainClass
 }
 
-/*jar{
-	manifest {
-		attributes "Main-Class":  "Launcher"
-	}
-	archiveBaseName = "Launcher"
-}*/
-
 repositories{
 	mavenCentral()
 }
