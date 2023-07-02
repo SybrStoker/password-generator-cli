@@ -23,17 +23,18 @@ public class Launcher implements Runnable{
     @Option(names = {"-L"}, description = "Set length of password")
     private int length = 25;
 
-    @Option(names = {"-c", "--copy"}, description = "Copy password for 60 seconds")
-    private boolean copy;
+    @Option(names = {"-c", "--copy"}, description = "Copy password for X amount of seconds")
+    private int[] copy = {0};
 
-    @Option(names = {"-m", "--mix"}, description = "Shuffles password 5 times")
-    private boolean mix;
+    @Option(names = {"-m", "--mix"}, description = "Shuffles password X amount of times")
+    private int[] mix = {0};
   
 
     @Override
     public void run() { 
     	Generator passGen;
     	Features perform = new Features();
+        boolean mixed = false;
 
     	if(useAll){
     		passGen = new Generator((byte) length, true, true, true, true);
@@ -47,23 +48,25 @@ public class Launcher implements Runnable{
 
     	System.out.println("Password: " + password);
 
-    	if(mix){
-    		for(int i = 0; i < 5; i++){
+
+    	if(mix[0] != 0){
+            mixed = true;
+    		for(int i = 0; i < mix[0]; i++){
     			shuffledPassword = perform.shuffle(password);
-    			System.out.println("Password" + "(" + (i + 1) + "): " + shuffledPassword);
+    			System.out.println("Mixed password" + "(" + (i + 1) + "): " + shuffledPassword);
     		}
 
     		password = shuffledPassword;
     	}
 
-       	if(copy){
-       		if(mix){
-       			System.out.println("Last password has been copied for 60 seconds");
+       	if(copy[0] != 0){
+       		if(mixed){
+       			System.out.println(String.format("The last mixed password has been copied for %d seconds", copy[0]));
        		} else{
-       			System.out.println("Password has been copied for 60 seconds");
+       			System.out.println(String.format("Password has been copied for %d seconds", copy[0]));
        		}
 
-       		perform.executeClipboard(60, password);
+       		perform.executeClipboard(copy[0], password);
        	}
     }
 
