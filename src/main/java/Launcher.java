@@ -2,6 +2,9 @@ import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 @Command(name = "pass-gen", version = "pass-gen Alpha", mixinStandardHelpOptions = true)
 public class Launcher implements Runnable{
 
@@ -28,13 +31,20 @@ public class Launcher implements Runnable{
 
     @Option(names = {"-m", "--mix"}, description = "Shuffles password X amount of times")
     private int[] mix = {0};
+
+	@Option(names = {"-i", "--ignore"}, description = "Does not copy the mixed password")
+	private boolean ignoreMixedPassword;
+
+	@Option(names = {"-r", "--random"}, description = "Copy a random mixed password(The last by default)")
+	private boolean pickRandomMixedPassword;
   
 
     @Override
     public void run() { 
     	Generator passGen;
     	Features perform = new Features();
-        boolean mixed = false;
+		Random rand = new Random();
+		ArrayList<String> mixedPasswords = new ArrayList<>();
 
     	if(useAll){
     		passGen = new Generator((byte) length, true, true, true, true);
@@ -50,21 +60,23 @@ public class Launcher implements Runnable{
 
 
     	if(mix[0] != 0){
-            mixed = true;
     		for(int i = 0; i < mix[0]; i++){
     			shuffledPassword = perform.shuffle(password);
+				mixedPasswords.add(shuffledPassword);
     			System.out.println("Mixed password" + "(" + (i + 1) + "): " + shuffledPassword);
     		}
 
-    		password = shuffledPassword;
+			if(!ignoreMixedPassword){
+				if(pickRandomMixedPassword){
+					password = mixedPasswords.get(rand.nextInt(mixedPasswords.size()));
+				} else{
+					password = mixedPasswords.get(mixedPasswords.size());
+				}
+			}
     	}
 
        	if(copy[0] != 0){
-       		if(mixed){
-       			System.out.println(String.format("The last mixed password has been copied for %d seconds", copy[0]));
-       		} else{
-       			System.out.println(String.format("Password has been copied for %d seconds", copy[0]));
-       		}
+	   		System.out.println(String.format("\nPassword '%s' has been copied to clipboard for %d seconds", password, copy[0]));
 
        		perform.executeClipboard(copy[0], password);
        	}
