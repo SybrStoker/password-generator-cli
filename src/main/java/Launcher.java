@@ -70,7 +70,7 @@ public class Launcher implements Runnable{
 				if(pickRandomMixedPassword){
 					password = mixedPasswords.get(rand.nextInt(mixedPasswords.size()));
 				} else{
-					password = mixedPasswords.get(mixedPasswords.size());
+					password = mixedPasswords.get(mixedPasswords.size() - 1);
 				}
 			}
     	}
